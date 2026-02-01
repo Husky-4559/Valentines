@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>For Claire ❤️</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				background-color: #ff69b4;
+				font-family: "Arial", sans-serif;
+				overflow: hidden;
+				text-align: center;
+				color: white;
+			}
+
+			#ask-screen h1 {
+				font-size: 2.5rem;
+				text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+				margin-bottom: 30px;
+			}
+
+			.buttons {
+				display: flex;
+				justify-content: center;
+				gap: 20px;
+				align-items: center;
+			}
+
+			button {
+				padding: 15px 30px;
+				font-size: 1.2rem;
+				border: none;
+				border-radius: 50px;
+				cursor: pointer;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+			}
+
+			#yesBtn {
+				background-color: #ffffff;
+				color: #ff69b4;
+				font-weight: bold;
+			}
+			#noBtn {
+				background-color: #ff4d4d;
+				color: white;
+				position: absolute;
+				transition: 0.1s;
+			}
+
+			/* Disney Success Screen */
+			#success-screen {
+				display: none;
+				flex-direction: column;
+				align-items: center;
+				animation: fadeIn 2s ease-in-out;
+			}
+
+			/* The romantic Disney-style text */
+			.disney-text {
+				font-family: "Great Vibes", cursive;
+				font-size: 3.5rem;
+				line-height: 1.2;
+				margin-bottom: 20px;
+				text-shadow:
+					0 0 10px rgba(255, 255, 255, 0.8),
+					0 0 20px rgba(255, 255, 255, 0.5);
+				animation: glow 3s infinite alternate;
+			}
+
+			#success-screen img {
+				max-width: 90%;
+				border-radius: 15px;
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+				border: 3px solid white;
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: scale(0.9);
+				}
+				to {
+					opacity: 1;
+					transform: scale(1);
+				}
+			}
+
+			@keyframes glow {
+				from {
+					text-shadow:
+						0 0 10px #fff,
+						0 0 20px #fff;
+				}
+				to {
+					text-shadow:
+						0 0 20px #fff,
+						0 0 30px #ffcce6,
+						0 0 40px #ffcce6;
+				}
+			}
+
+			.floating-heart {
+				position: absolute;
+				color: rgba(255, 255, 255, 0.7);
+				user-select: none;
+				pointer-events: none;
+				animation: float Up 4s linear infinite;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="ask-screen">
+			<h1>Claire, will you be my Valentine in 2026? 🌹</h1>
+			<div class="buttons">
+				<button id="yesBtn" onclick="celebrate()">YES!</button>
+				<button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
+			</div>
+		</div>
+
+		<div id="success-screen">
+			<div class="disney-text">
+				My Forever Valentine,<br />
+				I Can't Wait To Marry You.<br />
+				Love Always — Akhil
+			</div>
+			<img
+				src="https://media1.tenor.com/m/9uuwSPjCL8QAAAAC/rapunzel-tangled.gif"
+				alt="Rapunzel and Flynn"
+			/>
+		</div>
+
+		<script>
+			const noBtn = document.getElementById("noBtn");
+			const askScreen = document.getElementById("ask-screen");
+			const successScreen = document.getElementById("success-screen");
+
+			function moveNo() {
+				const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+				const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+				noBtn.style.left = `${x}px`;
+				noBtn.style.top = `${y}px`;
+			}
+
+			function celebrate() {
+				askScreen.style.display = "none";
+				successScreen.style.display = "flex";
+
+				// Generate more hearts for a "magical" feel
+				for (let i = 0; i < 50; i++) {
+					setTimeout(createHeart, i * 100);
+				}
+			}
+
+			function createHeart() {
+				const heart = document.createElement("div");
+				heart.classList.add("floating-heart");
+				heart.innerHTML = "✨"; // Starry sparkles mixed with hearts
+				if (Math.random() > 0.5) heart.innerHTML = "❤️";
+
+				heart.style.left = Math.random() * 100 + "vw";
+				heart.style.top = "100vh";
+				heart.style.fontSize = Math.random() * 20 + 15 + "px";
+
+				document.body.appendChild(heart);
+
+				// Animate moving up
+				const duration = Math.random() * 3000 + 2000;
+				heart.animate(
+					[
+						{ transform: "translateY(0) opacity(1)" },
+						{ transform: `translateY(-100vh) opacity(0)` },
+					],
+					{ duration: duration },
+				);
+
+				setTimeout(() => heart.remove(), duration);
+			}
+		</script>
+	</body>
+</html>
